@@ -49,7 +49,6 @@ listElement* insertAfter(listElement* el, char* data, size_t size){
   return newEl;
 }
 
-
 //Delete the element after the given el
 void deleteAfter(listElement* after){
   listElement* delete = after->next;
@@ -58,4 +57,63 @@ void deleteAfter(listElement* after){
   //need to free the memory because we used malloc
   free(delete->data);
   free(delete);
+}
+
+// Returns the number of elements in a linked list.
+// input start and loop through
+int length(listElement* start){
+  int length = 0;
+  listElement* current = start;
+  while(current != NULL){
+    length++;
+    current = current->next;
+  }
+  return length;
+}
+
+// Push a new element onto the head of a list
+// Update the list reference using side effects.
+void push(listElement** list, char* data, size_t size){
+  listElement* newEL = createEl(data, size);
+  newEL->next = *list;
+  *list = newEL;
+}
+
+// Pop an element from the head of a list
+// Update the list reference using side effects. 
+listElement* pop(listElement** list){
+  if(*list == NULL){
+      printf("Stack is empty\n");
+      return NULL;
+  }
+  listElement *temp = *list;
+  *list = temp->next;
+
+  return temp;
+}
+
+// Enqueue a new element onto the head of the list.
+// Update the list reference using side effects. 
+void enqueue(listElement** list, char* data, size_t size){
+  listElement* newEL = createEl(data, size);
+  newEL->next = *list;
+  *list = newEL;
+}
+
+//Dequeue an element from the tail of the list.
+listElement* dequeue(listElement* list){
+  listElement* current = list;
+  listElement* prev = NULL;
+  if(current == NULL){
+      printf("Stack is empty\n");
+      return NULL;
+  }
+  while(current->next){
+    prev = current;
+    current = current->next;
+  }
+  free(current->data);
+  free(current);
+  prev->next = NULL;
+  return current;
 }

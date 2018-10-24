@@ -3,23 +3,44 @@
 #include "linkedList.h"
 
 void runTests(){
-  printf("Tests running...\n");
-  listElement* l = createEl("Test String (1).", 30);
-  //printf("%s\n%p\n", l->data, l->next);
-  //Test create and traverse
-  traverse(l);
-  printf("\n");
+  printf("Tests running...\n\n");
+  printf("QUESTION 2:\n");
 
-  //Test insert after
-  listElement* l2 = insertAfter(l, "another string (2)", 30);
-  insertAfter(l2, "a final string (3)", 30);
-  traverse(l);
-  printf("\n");
+  listElement* l = NULL;
+  // Test pop and Dequeue on empty list
+  printf("Testing on an empty list:\n");
+  dequeue(l);
+  pop(&l);
 
-  // Test delete after
-  deleteAfter(l);
+  // Test push 
+  push(&l, "first", 30);
+  push(&l, "second", 30);
+  printf("\nTesting push:\n");
   traverse(l);
-  printf("\n");
 
-  printf("\nTests complete.\n");
+
+  enqueue(&l, "third", 30);
+  enqueue(&l, "fourth", 30);
+  enqueue(&l, "fifth", 30);
+  printf("\nTesting Enqueue:\n");
+  traverse(l);
+
+  // Test Length
+  int len = length(l);
+  printf("\nTesting Length:\n");
+  printf("Length: %d\n", len);
+
+  // Test pop on not-empty list
+  // Should pop "fifth"
+  printf("\nTesting Pop:\n");
+  pop(&l);
+  traverse(l);
+
+  // Test Dequeue on not-empty list
+  // Should Dequeue "first"
+  printf("\nTesting Dequeue:\n");
+  dequeue(l);
+  traverse(l);
+
+  printf("\n\nTests complete.\n");
 }
